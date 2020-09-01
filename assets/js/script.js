@@ -74,15 +74,15 @@ $(".list-group").on("blur", "textarea", function() {
     .attr("id")
     .replace("list-", "");
 
-  //get the task's poition in the list of the li elements
+  //get the task's position in the list of other li elements
   var index = $(this)
-    .closest("list-group-item")
+    .closest(".list-group-item")
     .index();
 
-  tasks[status][index].text = text;
-  saveTasks();
-
-  // recreate p element 
+    tasks[status][index].text = text;
+    saveTasks();
+  
+  // recreate p element
   var taskP = $("<p>")
     .addClass("m-1")
     .text(text);
@@ -99,17 +99,17 @@ $(".list-group").on("click", "span", function() {
     .text()
     .trim();
 
-// create new input element
-var dateInput = $("<input>")
+  // create new input element
+  var dateInput = $("<input>")
     .attr("type", "text")
     .addClass("form-control")
     .val(date);
 
-// swap out elements
-$(this).replaceWith(dateInput);
+  // swap out elements
+  $(this).replaceWith(dateInput);
 
-// automatically focus on new element
-dateInput.trigger("focus");
+  // automatically focus on new element
+  dateInput.trigger("focus");
 });
 
 // add blur callback when value of due date was changed
@@ -142,7 +142,6 @@ $(".list-group").on("blur", "input[type='text']", function() {
   // replace input with span element
   $(this).replaceWith(taskSpan);
 });
-
 
 
 // modal was triggered
