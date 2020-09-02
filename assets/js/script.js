@@ -1,5 +1,20 @@
 var tasks = {};
 
+$("#trash").droppable({
+  accept: ".card .list-group-item",
+  tolerance: "touch",
+  drop: function(event, ui) {
+    ui.draggable.remove();
+    console.log("drop");
+  },
+  over: function(event, ui) {
+    console.log("over");
+  },
+  out:function(even, ui) {
+    console.log("out");
+  }
+});
+
 $(".card .list-group").sortable({
   connectWith: $(".card .list-group"),
   scroll: false,
