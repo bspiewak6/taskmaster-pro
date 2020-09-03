@@ -1,20 +1,5 @@
 var tasks = {};
 
-$("#trash").droppable({
-  accept: ".card .list-group-item",
-  tolerance: "touch",
-  drop: function(event, ui) {
-    ui.draggable.remove();
-    console.log("drop");
-  },
-  over: function(event, ui) {
-    console.log("over");
-  },
-  out:function(even, ui) {
-    console.log("out");
-  }
-});
-
 var createTask = function(taskText, taskDate, taskList) {
   // create elements that make up a task item
   var taskLi = $("<li>").addClass("list-group-item");
@@ -64,12 +49,12 @@ var saveTasks = function() {
 // add click so that when the user clicks on the text area, it can be edited
 $(".list-group").on("click", "p", function() {
   var text = $(this)
-  .text()
-  .trim();
+    .text()
+    .trim();
   
   var textInput = $("<textarea>")
-  .addClass("form-control")
-  .val(text);
+    .addClass("form-control")
+    .val(text);
 
   $(this).replaceWith(textInput);
   textInput.trigger("focus");
@@ -250,6 +235,21 @@ console.log(tempArr);
   saveTasks();
 }
   
+});
+
+$("#trash").droppable({
+  accept: ".card .list-group-item",
+  tolerance: "touch",
+  drop: function(event, ui) {
+    ui.draggable.remove();
+    console.log("drop");
+  },
+  over: function(event, ui) {
+    console.log("over");
+  },
+  out:function(even, ui) {
+    console.log("out");
+  }
 });
 
 // load tasks for the first time
