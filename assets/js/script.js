@@ -199,18 +199,18 @@ $(".card .list-group").sortable({
   tolerance: "pointer",
   helper: "clone",
   activate: function(event) {
-    $(this).addClass(".dropover")
-    $(".bottom-trash").addClass(".bottom-trash-drag")
+    $(this).addClass("dropover")
+    $(".bottom-trash").addClass("bottom-trash-drag")
   },
   deactivate: function(event) {
     $(this).removeClass(".dropover")
-    $(".bottom-trash").removeClass(".bottom-trash-drag")
+    $(".bottom-trash").removeClass("bottom-trash-drag")
   },
   over: function(event) {
-    $(event.target).addClass(".dropover-active")
+    $(event.target).addClass("dropover-active")
   },
   out: function(event) {
-    $(event.target).removeClass(".dropover-active")
+    $(event.target).removeClass("dropover-active")
   },
   update: function(event) {
   // array to store the task data in
@@ -235,7 +235,7 @@ $(".card .list-group").sortable({
   });
 });
 
-console.log(tempArr);
+//console.log(tempArr);
 
   // trim down list's ID to match object property
   var arrName = $(this)
@@ -245,8 +245,10 @@ console.log(tempArr);
   // update array on tasks object and save
   tasks[arrName] = tempArr;
   saveTasks();
-}
-  
+  },
+  stop: function(event) {
+    $(this).removeClass("dropover");
+  } 
 });
 
 $("#trash").droppable({
@@ -254,16 +256,16 @@ $("#trash").droppable({
   tolerance: "touch",
   drop: function(event, ui) {
     ui.draggable.remove();
-    console.log("drop");
-    $(".bottom-trash").removeClass(".bottom-trash-active")
+    // console.log("drop");
+    $(".bottom-trash").removeClass("bottom-trash-active")
   },
   over: function(event, ui) {
     console.log("over");
-    $(".bottom-trash").addClass(".bottom-trash-active")
+    $(".bottom-trash").addClass("bottom-trash-active")
   },
-  out:function(even, ui) {
+  out: function(even, ui) {
     console.log("out");
-    $(".bottom-trash").removeClass(".bottom-trash-active")
+    $(".bottom-trash").removeClass("bottom-trash-active")
   }
 });
 
@@ -294,8 +296,9 @@ var auditTask = function(taskEl) {
 // load tasks for the first time
 loadTasks();
 
-setInterval(function () {
-  $(".card .list-group-item").each(function (el) {
-    auditTask(el);
+// audit task due dates every 30 minutes
+setInterval(function() {
+  $(".card .list-group-item").each(function() {
+    auditTask($(this));
   });
-}, (1000* 60) * 30);
+}, 1800000);
